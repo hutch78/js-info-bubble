@@ -145,7 +145,7 @@ InfoBubble.prototype.ARROW_POSITION_ = 50;
  * @const
  * @private
  */
-InfoBubble.prototype.PADDING_ = 10;
+InfoBubble.prototype.PADDING_ = 0;
 
 
 /**
@@ -211,20 +211,20 @@ InfoBubble.prototype.extend = function(obj1, obj2) {
 InfoBubble.prototype.buildDom_ = function() {
   
   var bubble = this.bubble_ = document.createElement('DIV');
-  bubble.style['position'] = 'absolute';
-  bubble.style['zIndex'] = this.baseZIndex_;
+    bubble.style['position'] = 'absolute';
+    bubble.style['zIndex'] = this.baseZIndex_;
 
   var tabsContainer = this.tabsContainer_ = document.createElement('DIV');
-  tabsContainer.style['position'] = 'relative';
+    tabsContainer.style['position'] = 'relative';
 
   // Close button
   var close = this.close_ = document.createElement('DIV');
-  close.style['position'] = 'absolute';
-  close.style['border'] = 0;
-  close.style['zIndex'] = this.baseZIndex_ + 1;
-  close.style['cursor'] = 'pointer';
-  close.className = 'js-info-bubble-close';
-  close.src = this.get('closeSrc');
+    close.style['position'] = 'absolute';
+    close.style['border'] = 0;
+    close.style['zIndex'] = this.baseZIndex_ + 1;
+    close.style['cursor'] = 'pointer';
+    close.className = 'js-info-bubble-close';
+    close.src = this.get('closeSrc');
 
   var that = this;
   google.maps.event.addDomListener(close, 'click', function() {
@@ -234,11 +234,11 @@ InfoBubble.prototype.buildDom_ = function() {
 
   // Content area
   var contentContainer = this.contentContainer_ = document.createElement('DIV');
-  contentContainer.style['overflowX'] = 'auto';
-  contentContainer.style['overflowY'] = 'auto';
-  contentContainer.style['cursor'] = 'default';
-  contentContainer.style['clear'] = 'both';
-  contentContainer.style['position'] = 'relative';
+    contentContainer.style['overflowX'] = 'auto';
+    contentContainer.style['overflowY'] = 'auto';
+    contentContainer.style['cursor'] = 'default';
+    contentContainer.style['clear'] = 'both';
+    contentContainer.style['position'] = 'relative';
 
   var content = this.content_ = document.createElement('DIV');
   contentContainer.appendChild(content);
@@ -935,6 +935,11 @@ InfoBubble.prototype.draw = function() {
       this.bubbleShadow_.style['height'] = this.px(2);
       break;
   }
+
+  if(this.get('wrapperClass')){
+    this.bubble_.classList.add(this.get('wrapperClass'));
+  }
+  
 };
 InfoBubble.prototype['draw'] = InfoBubble.prototype.draw;
 
@@ -1795,3 +1800,14 @@ InfoBubble.prototype.setHeightOffset = function(heightOffset) {
   this.set('heightOffset', heightOffset);
 };
 InfoBubble.prototype['setHeightOffset'] = InfoBubble.prototype.setHeightOffset;
+
+/**
+* Sets a wrapper class for the outer <div> in the InfoBubble
+*
+* @param {string|Node} className The name of the class to add
+*/
+InfoBubble.prototype.setWrapperClass = function(wrapperClass) {
+  console.log('Wrapper class added');
+  this.set('wrapperClass', wrapperClass);
+}
+InfoBubble.prototype['setWrapperClass'] = InfoBubble.prototype.setWrapperClass;
