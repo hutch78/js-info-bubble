@@ -34,6 +34,7 @@
  * @constructor
  */
 function InfoBubble(opt_options) {
+
   this.extend(InfoBubble, google.maps.OverlayView);
   this.tabs_ = [];
   this.activeTab_ = null;
@@ -910,6 +911,8 @@ InfoBubble.prototype.draw = function() {
   this.bubble_.style['top'] = this.px(top);
   this.bubble_.style['left'] = this.px(left);
 
+  this.bubble_.classList.add('info-bubble');
+
   var shadowStyle = parseInt(this.get('shadowStyle'), 10);
 
   switch (shadowStyle) {
@@ -937,7 +940,17 @@ InfoBubble.prototype.draw = function() {
   }
 
   if(this.get('wrapperClass')){
-    this.bubble_.classList.add(this.get('wrapperClass'));
+    var wrapperClassOption = this.get('wrapperClass');
+    if(typeof(wrapperClassOption) == 'object' || typeof(wrapperClassOption) == 'array'){
+      var bubble = this.bubble_;
+      // @ToDo -- Remove this hardcoded class.. 
+      bubble.classList.remove('location-window--below');
+      wrapperClassOption.map(function(className){
+        bubble.classList.add(className);
+      });
+    } else {
+      this.bubble_.classList.add(wrapperClassOption);
+    }
   }
   
 };
