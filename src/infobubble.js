@@ -907,7 +907,6 @@ InfoBubble.prototype.draw = function() {
   var heightOffset = this.get('heightOffset');
 
   if(heightOffset){
-    console.log('Height Offset:',heightOffset);
     top += parseInt(heightOffset);
   }
 
@@ -1812,7 +1811,6 @@ InfoBubble.prototype.positionCloseButton_ = function() {
  * @param {string|Node} heightOffset The content to set.
  */
 InfoBubble.prototype.setHeightOffset = function(heightOffset) {
-  console.log('setting height offset', heightOffset);
   this.set('heightOffset', heightOffset);
 };
 InfoBubble.prototype['setHeightOffset'] = InfoBubble.prototype.setHeightOffset;
@@ -1823,7 +1821,6 @@ InfoBubble.prototype['setHeightOffset'] = InfoBubble.prototype.setHeightOffset;
 * @param {string|Node} className The name of the class to add
 */
 InfoBubble.prototype.setWrapperClass = function(wrapperClass) {
-  console.log('Wrapper class added');
   this.set('wrapperClass', wrapperClass);
 }
 InfoBubble.prototype['setWrapperClass'] = InfoBubble.prototype.setWrapperClass;
