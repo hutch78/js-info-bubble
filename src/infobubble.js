@@ -209,6 +209,7 @@ InfoBubble.prototype.extend = function(obj1, obj2) {
  * @private
  */
 InfoBubble.prototype.buildDom_ = function() {
+  
   var bubble = this.bubble_ = document.createElement('DIV');
   bubble.style['position'] = 'absolute';
   bubble.style['zIndex'] = this.baseZIndex_;
@@ -217,7 +218,7 @@ InfoBubble.prototype.buildDom_ = function() {
   tabsContainer.style['position'] = 'relative';
 
   // Close button
-  var close = this.close_ = document.createElement('IMG');
+  var close = this.close_ = document.createElement('DIV');
   close.style['position'] = 'absolute';
   close.style['border'] = 0;
   close.style['zIndex'] = this.baseZIndex_ + 1;
@@ -902,6 +903,10 @@ InfoBubble.prototype.draw = function() {
 
   var left = pos.x - (width * arrowPosition);
 
+  if(this.get('heightOffset')){
+    top += parseInt(this.get('heightOffset'));
+  }
+
   this.bubble_.style['top'] = this.px(top);
   this.bubble_.style['left'] = this.px(left);
 
@@ -1528,7 +1533,7 @@ InfoBubble.prototype.removeTab = function(index) {
 
   this.tabs_.splice(index, 1);
 
-  delete tab;
+  tab = false;
 
   for (var i = 0, t; t = this.tabs_[i]; i++) {
     t.tab.index = i;
@@ -1593,7 +1598,7 @@ InfoBubble.prototype.getElementSize_ = function(element, opt_maxWidth,
   }
 
   document.body.removeChild(sizer);
-  delete sizer;
+  sizer = false;
   return size;
 };
 
@@ -1778,3 +1783,15 @@ InfoBubble.prototype.positionCloseButton_ = function() {
   this.close_.style['right'] = this.px(right);
   this.close_.style['top'] = this.px(top);
 };
+
+
+/**
+ * Sets Height Offset of the infobubble
+ *
+ * @param {string|Node} heightOffset The content to set.
+ */
+InfoBubble.prototype.setHeightOffset = function(heightOffset) {
+  console.log('setting height offset', heightOffset);
+  this.set('heightOffset', heightOffset);
+};
+InfoBubble.prototype['setHeightOffset'] = InfoBubble.prototype.setHeightOffset;
